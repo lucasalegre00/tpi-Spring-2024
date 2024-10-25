@@ -1,6 +1,5 @@
 package com.projectapp.TPISPRING.domain;
 
-import com.projectapp.TPISPRING.domain.enums.OpcionEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,13 +32,13 @@ public class Paso {
     @Column(nullable = false)
     private Integer tiempo;
 
-    @Enumerated(EnumType.STRING)
-    private OpcionEnum opcional;
+    @Column(nullable = false)
+    private Boolean esOpcional;
 
     @ManyToOne
-    private Receta receta;git 
+    private Receta receta;
 
-    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "paso_id")
     private List<Ingrediente> ingredientes;
 

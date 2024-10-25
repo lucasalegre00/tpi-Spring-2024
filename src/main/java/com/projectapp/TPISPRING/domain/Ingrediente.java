@@ -18,13 +18,13 @@ public class Ingrediente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
-    private String descripcion;
-
+    @ManyToOne
+    @JoinColumn(name = "paso_id", nullable = false)
+    private Paso paso;
 
 }
