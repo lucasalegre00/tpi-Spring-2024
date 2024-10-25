@@ -5,6 +5,7 @@ import com.projectapp.TPISPRING.domain.Paso;
 import com.projectapp.TPISPRING.domain.Receta;
 import com.projectapp.TPISPRING.dto.ingredientes.IngredientesDto;
 import com.projectapp.TPISPRING.dto.receta.RecetaDto;
+import com.projectapp.TPISPRING.dto.receta.RecetaListadoDto;
 import com.projectapp.TPISPRING.mappers.ingredientes.IngredienteMappers;
 import com.projectapp.TPISPRING.mappers.receta.RecetaMappers;
 import com.projectapp.TPISPRING.repository.paso.PasoRepository;
@@ -110,6 +111,19 @@ public class RecetaServiceImpl implements RecetaService {
 
         return ingredienteMappers.toIngredienteDtoList(ingredientes);
     }
+
+    @Override
+    public List<RecetaListadoDto> obtenerRecetasPorCategoria(UUID categoriaId) {
+        List<Receta> recetas = recetaRepository.findByCategoriaId(categoriaId);
+        return recetaMappers.recetasToRecetaListadoDto(recetas);
     }
+
+    }
+
+
+
+
+
+
 
 

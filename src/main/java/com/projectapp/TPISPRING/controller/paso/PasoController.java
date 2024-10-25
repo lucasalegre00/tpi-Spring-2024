@@ -20,7 +20,7 @@ public class PasoController {
 
         @PutMapping("/api/v1/{recetaId}/pasos/{pasoId}")
         public ResponseEntity<PasoDto> actualizarPaso(@PathVariable UUID recetaId,
-                                                      @PathVariable UUID pasoId,
+                                                      @PathVariable(required = false, name = "pasoId") UUID pasoId,
                                                       @RequestBody ActualizarPasoDto pasoDto) {
             PasoDto pasoActualizado = pasoService.actualizarPaso(recetaId, pasoId, pasoDto);
             return ResponseEntity.ok(pasoActualizado);

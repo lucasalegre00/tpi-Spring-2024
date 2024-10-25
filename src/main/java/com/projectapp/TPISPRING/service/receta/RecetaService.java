@@ -2,6 +2,7 @@ package com.projectapp.TPISPRING.service.receta;
 
 import com.projectapp.TPISPRING.dto.ingredientes.IngredientesDto;
 import com.projectapp.TPISPRING.dto.receta.RecetaDto;
+import com.projectapp.TPISPRING.dto.receta.RecetaListadoDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface RecetaService {
     boolean eliminarReceta(UUID id);
 
     List<IngredientesDto> obtenerIngredientes(UUID recetaId, UUID pasoId);
+
+    List<RecetaListadoDto> obtenerRecetasPorCategoria(UUID categoriaId);
 }

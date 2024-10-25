@@ -4,9 +4,8 @@ import com.projectapp.TPISPRING.domain.Categoria;
 import com.projectapp.TPISPRING.domain.Ingrediente;
 import com.projectapp.TPISPRING.domain.Paso;
 import com.projectapp.TPISPRING.domain.Receta;
-import com.projectapp.TPISPRING.dto.categoria.CategoriaDto;
-import com.projectapp.TPISPRING.dto.ingredientes.IngredientesDto;
 import com.projectapp.TPISPRING.dto.receta.RecetaDto;
+import com.projectapp.TPISPRING.dto.receta.RecetaListadoDto;
 import com.projectapp.TPISPRING.mappers.categoria.CategoriaMappers;
 import com.projectapp.TPISPRING.mappers.ingredientes.IngredienteMappers;
 import com.projectapp.TPISPRING.mappers.paso.PasoMappers;
@@ -92,6 +91,44 @@ public class RecetaMappersImpl implements RecetaMappers {
 
         //o se puede hacer return new directamente
     }
+
+
+    @Override
+    public RecetaListadoDto recetaToRecetaListadoDto(Receta receta) {
+        if (receta == null) {
+            return null;
+        }
+        long tiempoTotal = calcularTiempoTotal(receta);
+
+        RecetaListadoDto listadoDto = new RecetaListadoDto(
+                receta.getId(),
+                receta.getNombre(),
+                receta.getDificultad(),
+                receta.getDescripcion(),
+                tiempoTotal
+        );
+
+        return listadoDto;
+    }
+
+    // Método para convertir una lista de Receta a una lista de RecetaDto
+    @Override
+    public List<RecetaListadoDto> recetasToRecetaListadoDto(List<Receta> recetas) {
+        return recetas.stream()
+                .map(this::recetaToRecetaListadoDto)
+                .collect(Collectors.toList());
+    }
+
+    // Método para calcular el tiempo total
+    @Override
+    public long calcularTiempoTotal(Receta receta) {
+        return receta.getPasos().stream()
+                .filter(paso -> !paso.getEsOpcional()) // Filtrar pasos no opcionales
+                .mapToLong(Paso::getTiempo) // Sumar los tiempos
+                .sum();
+    }
+
+
 
 
 }
